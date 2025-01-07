@@ -131,4 +131,6 @@ dependencies {
     implementation 'me.jessyan:autosize:1.2.1'
     //防崩溃
     implementation 'cat.ereza:customactivityoncrash:2.3.0'
+    implementation 'com.aliyun.dpa:oss-android-sdk:2.9.19'
+
 }

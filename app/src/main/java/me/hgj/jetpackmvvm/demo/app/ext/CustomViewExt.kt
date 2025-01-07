@@ -38,9 +38,13 @@ import me.hgj.jetpackmvvm.demo.app.weight.recyclerview.DefineLoadMoreView
 import me.hgj.jetpackmvvm.demo.app.weight.viewpager.ScaleTransitionPagerTitleView
 import me.hgj.jetpackmvvm.demo.data.model.bean.ClassifyResponse
 import me.hgj.jetpackmvvm.demo.ui.fragment.home.HomeFragment
+import me.hgj.jetpackmvvm.demo.ui.fragment.home.SHomeFragment
 import me.hgj.jetpackmvvm.demo.ui.fragment.me.MeFragment
+import me.hgj.jetpackmvvm.demo.ui.fragment.me.SMeFragment
 import me.hgj.jetpackmvvm.demo.ui.fragment.project.ProjectFragment
+import me.hgj.jetpackmvvm.demo.ui.fragment.project.SProjectFragment
 import me.hgj.jetpackmvvm.demo.ui.fragment.publicNumber.PublicNumberFragment
+import me.hgj.jetpackmvvm.demo.ui.fragment.tree.STreeArrFragment
 import me.hgj.jetpackmvvm.demo.ui.fragment.tree.TreeArrFragment
 import me.hgj.jetpackmvvm.ext.util.toHtml
 import net.lucode.hackware.magicindicator.MagicIndicator
@@ -352,6 +356,39 @@ fun ViewPager2.initMain(fragment: Fragment): ViewPager2 {
             }
         }
         override fun getItemCount() = 5
+    }
+    return this
+}
+
+fun ViewPager2.initSmain(fragment: Fragment): ViewPager2 {
+    //是否可滑动
+    this.isUserInputEnabled = false
+    this.offscreenPageLimit = 3
+    //设置适配器
+    adapter = object : FragmentStateAdapter(fragment) {
+        override fun createFragment(position: Int): Fragment {
+            when (position) {
+                0 -> {
+                    return SHomeFragment()
+                }
+                1 -> {
+                    return SProjectFragment()
+                }
+//                2 -> {
+//                    return STreeArrFragment()
+//                }
+//                3 -> {
+//                    return PublicNumberFragment()
+//                }
+                2 -> {
+                    return SMeFragment()
+                }
+                else -> {
+                    return HomeFragment()
+                }
+            }
+        }
+        override fun getItemCount() = 3
     }
     return this
 }

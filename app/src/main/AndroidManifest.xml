@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning,LockedOrientationActivity">
         <activity
-            android:name=".ui.activity.WelcomeActivity"
+            android:name=".ui.activity.SmainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenThemse">
             <intent-filter>
@@ -28,6 +28,11 @@
             android:name=".ui.activity.MainActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.WelcomeActivity"
+            android:label="错误界面"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.ErrorActivity"

@@ -4,6 +4,8 @@ import androidx.multidex.MultiDex
 import cat.ereza.customactivityoncrash.config.CaocConfig
 import com.kingja.loadsir.callback.SuccessCallback
 import com.kingja.loadsir.core.LoadSir
+import com.liulishuo.filedownloader.FileDownloader
+import com.liulishuo.filedownloader.connection.FileDownloadUrlConnection
 import com.tencent.bugly.Bugly
 import com.tencent.bugly.crashreport.CrashReport
 import com.tencent.mmkv.MMKV
@@ -84,6 +86,18 @@ class App : BaseApp() {
             .restartActivity(WelcomeActivity::class.java) // 重启的activity
             .errorActivity(ErrorActivity::class.java) //发生错误跳转的activity
             .apply()
+
+        FileDownloader.setupOnApplicationOnCreate(this)
+            .connectionCreator(
+                FileDownloadUrlConnection.Creator(
+                    FileDownloadUrlConnection.Configuration()
+                        .connectTimeout(15000) // set connection timeout.
+                        .readTimeout(15000) // set read timeout.
+                )
+            )
+            .commit()
     }
+
+
 
 }

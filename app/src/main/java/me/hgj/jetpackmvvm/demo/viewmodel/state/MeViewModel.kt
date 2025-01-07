@@ -12,7 +12,8 @@ import me.hgj.jetpackmvvm.demo.app.util.ColorUtil
  */
 class MeViewModel : BaseViewModel() {
 
-    var name = StringObservableField("请先登录~")
+    var id = StringObservableField("请先输入sn~")
+    var name = StringObservableField("门店名称")
 
     var integral = IntObservableField(0)
 

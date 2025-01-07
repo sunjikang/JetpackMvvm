@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="me.hgj.jetpackmvvm.demo.viewmodel.state.MeViewModel" />
+
+        <variable
+            name="click"
+            type="me.hgj.jetpackmvvm.demo.ui.fragment.me.SMeFragment.ProxyClick" />
+    </data>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/me_swipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/me_linear"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary"
+                        android:onClick="@{()->click.login()}"
+                        android:paddingTop="?attr/actionBarSize"
+                        android:paddingBottom="?attr/actionBarSize">
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:layout_marginStart="16dp"
+                            android:src="@drawable/ic_account"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            bind:circleImageUrl="@{vm.imageUrl}" />
+
+                        <TextView
+                            android:id="@+id/me_name"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:textColor="@color/white"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toTopOf="@+id/me_info"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/imageView"
+                            app:layout_constraintTop_toTopOf="@+id/imageView"
+                            app:layout_constraintVertical_chainStyle="packed"
+                            tools:text="我是菜虚鲲" />
+
+                        <TextView
+                            android:id="@+id/me_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="12dp"
+                             android:textColor="@color/white"
+                            android:textSize="12dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                            app:layout_constraintStart_toEndOf="@+id/imageView"
+                            app:layout_constraintTop_toBottomOf="@+id/me_name"
+                            tools:text="环境" />
+                        <TextView
+                            android:id="@+id/me_shopname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="12dp"
+                            android:textColor="@color/white"
+                            android:textSize="12dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                            app:layout_constraintStart_toEndOf="@+id/imageView"
+                            app:layout_constraintTop_toBottomOf="@+id/me_info"
+                            tools:text="环境" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="-16dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="0dp">
+                        <me.hgj.jetpackmvvm.demo.app.weight.customview.FlowLayout
+                            android:layout_marginTop="16dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <Button
+
+                                android:text="重启"
+                                android:onClick="@{()->click.rebboot()}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                            </Button>
+                            <Button
+                                android:text="到设置页面"
+                                android:onClick="@{()->click.gotoSetting()}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                            </Button>
+
+                            <Button
+                                android:text="到热点页面"
+                                android:onClick="@{()->click.gotoWifiHot()}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                            </Button>
+
+                            <Button
+                                android:text="到运维页面"
+                                android:onClick="@{()->click.gotoYunWei()}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                            </Button>
+
+                            <Button
+                                android:text="到网页浏览器"
+                                android:onClick="@{()->click.gotoWebBrowser()}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                            </Button>
+                            <Button
+                                android:text="到文件浏览器"
+                                android:onClick="@{()->click.gotoFileBrowser()}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                            </Button>
+                            <Button
+                                android:text="返回上一页"
+                                android:onClick="@{()->click.goBack()}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                            </Button>
+                            <Button
+                                android:text="重启商城app"
+                                android:onClick="@{()->click.restartShopAPP()}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                            </Button>
+
+                        </me.hgj.jetpackmvvm.demo.app.weight.customview.FlowLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</layout>

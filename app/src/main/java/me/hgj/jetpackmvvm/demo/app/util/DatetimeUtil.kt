@@ -16,6 +16,8 @@ object DatetimeUtil {
 
     val DATE_PATTERN = "yyyy-MM-dd"
     var DATE_PATTERN_SS = "yyyy-MM-dd HH:mm:ss"
+    var DATE_PATTERN_SS_new = "yyyy-MM-dd HH:mm:ss"
+
     var DATE_PATTERN_MM = "yyyy-MM-dd HH:mm"
 
     /**
@@ -100,6 +102,13 @@ object DatetimeUtil {
      */
     fun getCustomTime(dateStr: String):Date{
         return formatDate(DATE_PATTERN,dateStr)
+    }
+
+    /**
+     * 获得指定时间的日期
+     */
+    fun getCustomNewTime(dateStr: String):Date{
+        return formatDate(DATE_PATTERN_SS_new,dateStr)
     }
 
 }

@@ -1,6 +1,7 @@
 package me.hgj.jetpackmvvm.demo.app.network
 
 import me.hgj.jetpackmvvm.demo.data.model.bean.*
+import me.hgj.jetpackmvvm.demo.viewmodel.request.ReqyestBody
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -14,7 +15,7 @@ interface ApiService {
 
     companion object {
         const val SERVER_URL = "https://wanandroid.com/"
-        const val SERVER_URL1 = "https://wanandroid.com/"
+        const val YYG_SERVER_URL = "https://api.uyaogui.com/yun-api/api/"
     }
 
     /**
@@ -193,6 +194,19 @@ interface ApiService {
      */
     @GET("lg/coin/userinfo/json")
     suspend fun getIntegral(): ApiResponse<IntegralResponse>
+
+//    /**
+//     * 发送远程指令
+//     */
+//    @GET("push/pushInfo")
+//    suspend fun sendMQTT( @Body json: ReqyestBody): ApiResponse<IntegralResponse>
+
+    /**
+     * 发送远程指令
+     */
+    @HTTP(method = "POST",path = "push/pushInfo", hasBody = true)
+    suspend fun sendMQTT( @Body json: ReqyestBody): ApiResponse<IntegralResponse>
+
 
     /**
      * 获取积分排行榜

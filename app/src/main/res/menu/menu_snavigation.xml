@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_main"
+        android:checked="true"
+        android:icon="@drawable/menu_main"
+        android:title="sn和环境" />
+
+    <item
+        android:id="@+id/menu_project"
+        android:icon="@drawable/menu_project"
+        android:title="远程页面" />
+
+
+    <item
+        android:id="@+id/menu_me"
+        android:icon="@drawable/menu_me"
+        android:title="基础控制" />
+
+</menu>

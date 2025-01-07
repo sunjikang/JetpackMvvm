@@ -18,12 +18,14 @@ buildscript {
 
 allprojects {
     repositories {
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven{ url = "http://maven.aliyun.com/nexus/content/groups/public/" }
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
         google()
-        //阿里云jcenter仓库
-        maven{ url 'https://maven.aliyun.com/repository/jcenter' }
-        maven {
-            url 'https://jitpack.io'
-        }
+        jcenter()
     }
     //配置这个
     tasks.withType(Javadoc) {
