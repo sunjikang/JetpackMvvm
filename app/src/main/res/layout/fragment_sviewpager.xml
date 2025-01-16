@@ -27,7 +27,7 @@
                 android:id="@+id/iv_image"
                 android:layout_width="720px"
                 android:layout_height="1280px"
-                android:background="#FF00ff"
+                android:background="@mipmap/remote_click_bg"
                 android:scaleType="fitXY" />
 
 
@@ -35,6 +35,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -68,11 +69,35 @@
         </LinearLayout>
 
         <Button
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="@{()->click.display()}"
             android:text="显示" />
+        <LinearLayout
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <Button
+                android:text="模拟设置页面"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->click.copySettting()}"/>
+            <Button
+                android:text="模拟热点页面"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->click.copyRedian()}"/>
 
+            <Button
+                android:text="模拟网页浏览器页面"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->click.copyLiulanqi()}"/>
+
+        </LinearLayout>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

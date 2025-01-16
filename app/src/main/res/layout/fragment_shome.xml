@@ -20,7 +20,7 @@
         android:orientation="horizontal">
 
         <EditText
-            android:text="百草堂"
+            android:text="测试"
             android:id="@+id/input_shopname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

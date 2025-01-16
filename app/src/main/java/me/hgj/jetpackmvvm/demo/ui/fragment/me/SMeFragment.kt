@@ -40,6 +40,19 @@ class SMeFragment : BaseFragment<MeViewModel, FragmentSmeBinding>() {
     private val requestMeViewModel: RequestMeViewModel by viewModels()
 
     override fun initView(savedInstanceState: Bundle?) {
+
+
+        mDatabind.vm = mViewModel
+        mDatabind.click = ProxyClick()
+        appViewModel.appColor.value?.let { setUiTheme(it, me_linear, me_integral) }
+        appViewModel.userInfo.value?.let { mViewModel.name.set(if (it.nickname.isEmpty()) it.username else it.nickname) }
+        me_swipe.init {
+            requestMeViewModel.getIntegral()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
         sn = SPUtils.getInstance().getString("sn")
         hj = SPUtils.getInstance().getBoolean("hj", false)
         me_name.text = "当前sn为： $sn"
@@ -51,13 +64,6 @@ class SMeFragment : BaseFragment<MeViewModel, FragmentSmeBinding>() {
         var shopname = SPUtils.getInstance().getString("shopname")
         me_shopname.text = shopname
 
-        mDatabind.vm = mViewModel
-        mDatabind.click = ProxyClick()
-        appViewModel.appColor.value?.let { setUiTheme(it, me_linear, me_integral) }
-        appViewModel.userInfo.value?.let { mViewModel.name.set(if (it.nickname.isEmpty()) it.username else it.nickname) }
-        me_swipe.init {
-            requestMeViewModel.getIntegral()
-        }
     }
 
     override fun lazyLoadData() {

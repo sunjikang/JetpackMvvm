@@ -17,6 +17,8 @@ import kotlinx.android.synthetic.main.fragment_sviewpager.iv_image
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.selects.whileSelect
+import me.hgj.jetpackmvvm.demo.R
 import me.hgj.jetpackmvvm.demo.app.base.BaseFragment
 import me.hgj.jetpackmvvm.demo.app.util.DatetimeUtil
 import me.hgj.jetpackmvvm.demo.databinding.FragmentSviewpagerBinding
@@ -77,16 +79,18 @@ class SProjectFragment : BaseFragment<SProjectViewModel, FragmentSviewpagerBindi
                 if (clickable) {
                     clickable = false
                     Handler().postDelayed({
-                        requestMeViewModel.sendMQTT("", "input tap ${event.x*1.5} ${event.y*1.5}")
+                        requestMeViewModel.sendMQTT(
+                            "",
+                            "input tap ${event.x * 1.5} ${event.y * 1.5}"
+                        )
                         clickable = true
                     }, 50)
-                }            }
+                }
+            }
 
             return@setOnTouchListener true
         }
     }
-
-
 
 
     inner class ProxyClick {
@@ -105,27 +109,91 @@ class SProjectFragment : BaseFragment<SProjectViewModel, FragmentSviewpagerBindi
                 "custom:action:remote_upload_log_file-${downloadpath}${picName}.png", false
             )
         }
+        fun copySettting(){
+            iv_image.setImageResource(R.mipmap.bg_setting)
+        }
+
+        fun copyRedian(){
+            iv_image.setImageResource(R.mipmap.bg_redian)
+        }
+
+        fun copyLiulanqi(){
+            iv_image.setImageResource(R.mipmap.bg_liulanqi)
+        }
+
+
+
         fun loadImage() {
 
+            showLoading("加载中...")
 
+            var i = 0
 
             GlobalScope.launch {
-                Log.e("tag","开始截图")
+                Log.e("tag", "开始截图")
                 screenCut()
-                delay(3000L)
-                Log.e("tag","上传图片")
+                delay(2000L)
+                Log.e("tag", "上传图片")
                 uploadPic()
                 delay(7000)
-                Log.e("tag","下载图片")
+                Log.e("tag", "下载图片")
                 download()
-                delay(5000)
-                Log.e("tag","解压图片")
-                unzip()
-                delay(3000)
-                Log.e("tag","显示图片")
-                Handler(Looper.getMainLooper()).post {
-                    display()
+                delay(2000)
+                //循环检查本地文件
+                while (!File(downloadpath + "$picName.zip").exists()) {
+                    i++
+                    Log.e("tag", "等待下载")
+                    download()
+                    delay(2000)
+                    if (i > 2) {
+                        Handler(Looper.getMainLooper()).post {
+                            dismissLoading()
+                            Toast.makeText(activity, "下载超时", Toast.LENGTH_SHORT).show()
+                        }
+                        Log.e("tag", "下载超时")
+                        return@launch
+                    }
                 }
+
+                if (File(downloadpath + "$picName.zip").exists()) {
+                    Log.e("tag", "解压图片")
+                    unzip()
+                    i=0
+                    while (!File(downloadpath + "$picName.png").exists()) {
+                        i++
+                        Log.e("tag", "等待解压")
+                        delay(500)
+                        if (i > 5) {
+                            Handler(Looper.getMainLooper()).post {
+                                dismissLoading()
+                                Toast.makeText(activity, "解压超时", Toast.LENGTH_SHORT).show()
+                            }
+                            Log.e("tag", "解压超时")
+                            return@launch
+                        }
+                    }
+
+                    when {
+                        File(downloadpath + "$picName.png").exists() -> {
+                            Log.e("tag", "图片存在")
+                            Handler(Looper.getMainLooper()).post {
+                                dismissLoading()
+
+                                display()
+                            }
+                        }
+
+                        else -> {
+                            Log.e("tag", "图片不存在")
+                            Handler(Looper.getMainLooper()).post {
+                                dismissLoading()
+                                Toast.makeText(activity, "图片不存在", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+
+                }
+
 
             }
 
@@ -136,7 +204,7 @@ class SProjectFragment : BaseFragment<SProjectViewModel, FragmentSviewpagerBindi
 
 
             val path = downloadpath
-                DownloadFileTask().execute(downloadUrl, path,picName.toString() + ".zip")
+            DownloadFileTask().execute(downloadUrl, path, picName.toString() + ".zip")
 
         }
 
@@ -159,18 +227,11 @@ class SProjectFragment : BaseFragment<SProjectViewModel, FragmentSviewpagerBindi
             val path =
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
                     .toString() + File.separator + "$picName.png"
-           activity?.let {
+            activity?.let {
                 Glide.with(it).load(path)
                     .transition(DrawableTransitionOptions.withCrossFade(500))
                     .into(iv_image)
             }
-        }
-
-
-        /** 获取图片 */
-        fun getPic() {
-
-
         }
 
 
